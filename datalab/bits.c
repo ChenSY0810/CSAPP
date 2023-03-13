@@ -143,7 +143,9 @@ NOTES:
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return 2;
+  //(~a&b)|(a&~b) = ((~a)|(a&~b))&(b|(a&~b)) = (((~a)|a)&((~a)|(~b)))&((b|a)&(b|(~b))) =
+  // ((1&((~a)|(~b)))&((b|a)&1)) = ((~a)|(~b))&(b|a) = ~(a&b) & ~((~a)&(~b))
+  return (~(x&y)) & (~((~x)&(~y)));
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -152,9 +154,8 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmin(void) {
-
-  return 2;
-
+  //10...31...0 0x8000(forbidden), 0x01<<31
+  return 0x01<<31;
 }
 //2
 /*
@@ -165,7 +166,8 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-  return 2;
+  //take a byte for example 127+2 = -127 x + (x+2) == 0
+  return !(x + (x+2));
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -176,6 +178,7 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
+  //similarly 
   return 2;
 }
 /* 
@@ -186,7 +189,8 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  // usage of complement number 
+  return (~x)+1;
 }
 //3
 /* 
